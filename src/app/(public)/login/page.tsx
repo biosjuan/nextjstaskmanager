@@ -1,19 +1,33 @@
 'use client';
+import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [user, setUser] = useState({
     password: '',
     email: '',
   });
 
-  const isRegisterButtonDisabled = () => {
+  const isLogginButtonDisabled = () => {
     return !user.password || !user.email;
   };
 
-  const onRegister = () => {
-    console.log(JSON.stringify(user));
+  const onLogin = async () => {
+    try {
+      await axios.post('/api/users/login', user);
+      setLoading(true);
+      toast.success('logged successfuly');
+      router.push('/');
+    } catch (error: any) {
+      toast.error(error.response.data.message || error.message);
+    } finally {
+      setLoading(true);
+    }
   };
 
   return (
@@ -49,13 +63,11 @@ function Login() {
           />
         </div>
         <button
-          className={
-            isRegisterButtonDisabled() ? 'btn-disabled' : 'btn-primary'
-          }
-          disabled={isRegisterButtonDisabled()}
-          onClick={onRegister}
+          className={isLogginButtonDisabled() ? 'btn-disabled' : 'btn-primary'}
+          disabled={isLogginButtonDisabled()}
+          onClick={() => onLogin()}
         >
-          Login
+          {loading ? 'logging in...' : 'Login'}
         </button>
         <Link href='/register'>Don't have an account? Register</Link>
       </div>

@@ -1,8 +1,13 @@
 'use client';
+import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 function Register() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -12,9 +17,17 @@ function Register() {
   const isRegisterButtonDisabled = () => {
     return !user.username || !user.password || !user.email;
   };
-
-  const onRegister = () => {
-    console.log(JSON.stringify(user));
+  const onRegister = async () => {
+    try {
+      setLoading(true);
+      await axios.post(`/api/users/register`, user);
+      toast.success('User registered succssfuly! Please login.');
+      router.push('/login');
+    } catch (error: any) {
+      toast.error(error.response.data.message || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,7 +80,7 @@ function Register() {
           disabled={isRegisterButtonDisabled()}
           onClick={onRegister}
         >
-          Register
+          {loading ? 'Registering User...' : 'Register'}
         </button>
         <Link href='/login'>Alerady have an account</Link>
       </div>
