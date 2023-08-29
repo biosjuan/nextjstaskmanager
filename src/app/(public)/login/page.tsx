@@ -13,6 +13,7 @@ function Login() {
     email: '',
   });
 
+  const registerText = `Don't have an account? Register`;
   const isLogginButtonDisabled = () => {
     return !user.password || !user.email;
   };
@@ -69,7 +70,7 @@ function Login() {
         >
           {loading ? 'logging in...' : 'Login'}
         </button>
-        <Link href='/register'>Don't have an account? Register</Link>
+        <Link href='/register'>{registerText}</Link>
       </div>
     </div>
   );
