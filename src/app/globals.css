@@ -7,15 +7,20 @@
   font-family: 'Poppins', sans-serif !important;
 }
 
-input {
-  height: 45px !important;
+input, select, textarea {
+  min-height: 45px !important;
   border: 1px solid #c3c3c3 !important;
   padding: 0px 10px !important;
 }
 
-input:focus {
+input:focus, select:focus, textarea:focus {
   outline: none !important;
   border: 1px solid #585858;
+}
+
+textarea {
+  min-height: 100px !important;
+  padding: 10px !important;
 }
 
 button {
@@ -43,6 +48,3 @@ button {
   pointer-events: none !important;
 }
 
-a{
-  text-decoration: underline !important;
-}
