@@ -69,7 +69,7 @@ async function Tasks({ searchParams }: { searchParams: any }) {
             <h1 className='text-xl text-gray-700'>{task.title}</h1>
             <p className='text-gray-500 text-sm'>{task.description}</p>
             <hr />
-            <div className='grid grid-cols-3 gap-5'>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-5'>
               {getProperty('Status', task.status)}
               {getProperty('Category', task.category)}
               {getProperty('Start Date', task.dateToStart)}
@@ -86,7 +86,7 @@ async function Tasks({ searchParams }: { searchParams: any }) {
               )}
             </div>
 
-            <div className='flex justify-end gap-5'>
+            <div className='flex justify-end gap-5 mt-5'>
               <DelteTaskButton taskid={task._id || ''} />
               <button className='btn-primary'>
                 <Link href={`/tasks/edittask/?taskid=${task._id}`}>Edit</Link>

@@ -59,7 +59,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 
         {!isPublicRoute ? (
           <div>
-            <div className='mx-10 bg-primary text-white p-5 flex justify-between items-center rounded-b'>
+            <div className='lg:mx-10 bg-primary text-white p-5 flex justify-between items-center rounded-b'>
               <h1
                 className='text-2xl font-bold cursor-pointer'
                 onClick={() => router.push('/')}
@@ -74,7 +74,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                 ></i>
               </div>
             </div>
-            <div className='h-[85vh] mx-10 mt-5'>{children}</div>
+            <div className='h-[85vh] lg:mx-10 mx-3 mt-5'>{children}</div>
           </div>
         ) : (
           <div>{children}</div>

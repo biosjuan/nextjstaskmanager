@@ -46,7 +46,7 @@ function TaskForm({
           onChange={(e) => setTask({ ...task, reference: e.target.value })}
         />
       </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col lg:col-span-1 col-span-3'>
         <label htmlFor='status'>Status</label>
         <select
           value={task.status}
@@ -57,7 +57,7 @@ function TaskForm({
           <option value='closed'>Closed</option>
         </select>
       </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col lg:col-span-1 col-span-3'>
         <label htmlFor='category'>Category</label>
         <select
           value={task.category}
@@ -69,7 +69,7 @@ function TaskForm({
           <option value='others'>Others</option>
         </select>
       </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col lg:col-span-1 col-span-3'>
         <label htmlFor='priority'>Priority</label>
         <select
           value={task.priority}
@@ -80,7 +80,7 @@ function TaskForm({
           <option value='high'>High</option>
         </select>
       </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col lg:col-span-1 col-span-3'>
         <label htmlFor='dateToStart'>Date to Start</label>
         <input
           type='date'
@@ -88,7 +88,7 @@ function TaskForm({
           onChange={(e) => setTask({ ...task, dateToStart: e.target.value })}
         />
       </div>
-      <div className='flex flex-col'>
+      <div className='flex flex-col lg:col-span-1 col-span-3'>
         <label htmlFor='dateToFinish'>Date to Finish</label>
         <input
           type='date'
