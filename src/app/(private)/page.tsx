@@ -2,7 +2,7 @@ import axios from 'axios';
 import { cookies } from 'next/headers';
 import CountCard from './tasks/_components/CountCard';
 
-export async function getDashboardData() {
+async function getDashboardData() {
   try {
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
@@ -19,7 +19,7 @@ export async function getDashboardData() {
   }
 }
 
-export default async function Home() {
+async function Home() {
   const dashboardData = await getDashboardData();
   return (
     <div>
@@ -73,3 +73,5 @@ export default async function Home() {
     </div>
   );
 }
+
+export default Home();
