@@ -4,12 +4,15 @@ import { cookies } from 'next/headers';
 import axios from 'axios';
 import { taskInterface } from '@/interfaces';
 import DelteTaskButton from './_components/DeleteTask';
+import ClearFilters from './_components/ClearFilters';
 
-export async function getTasks() {
+export async function getTasks(searchParams = {}) {
   try {
+    const searchParamsString = new URLSearchParams(searchParams).toString();
+
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
-    const endPoint = `${process.env.domain}/api/tasks`;
+    const endPoint = `${process.env.domain}/api/tasks?${searchParamsString}`;
     const response = await axios.get(endPoint, {
       headers: { Cookie: `token=${token}` },
     });
@@ -17,9 +20,13 @@ export async function getTasks() {
   } catch (error) {}
 }
 
-async function Tasks() {
-  const tasks = await getTasks();
+async function Tasks({ searchParams }: { searchParams: any }) {
+  const tasks = await getTasks(searchParams);
 
+  const filtersApplied = {
+    status: searchParams.status,
+    priority: searchParams.priority,
+  };
   const getProperty = (key: string, value: any) => {
     return (
       <div className='flex flex-col text-sm'>
@@ -32,10 +39,26 @@ async function Tasks() {
   return (
     <div>
       <div className='flex justify-between items-center'>
-        <h1 className='text-2xl font-bold'>Tasks</h1>
-        <button className='btn-primary'>
-          <Link href='/tasks/addtask'>New Task</Link>
-        </button>
+        <div>
+          <h1 className='text-2xl font-bold'>Tasks</h1>
+          <p className='text-gray-600 text-sm'>{tasks.length} tasks found</p>
+          {filtersApplied.status && (
+            <p className='text-gray-600 text-sm uppercase'>
+              Status: {filtersApplied.status}
+            </p>
+          )}
+          {filtersApplied.priority && (
+            <p className='text-gray-600 text-sm uppercase'>
+              Priority: {filtersApplied.priority}
+            </p>
+          )}
+        </div>
+        <div className='flex gap-5 items-center'>
+          <ClearFilters />
+          <button className='btn-primary'>
+            <Link href='/tasks/addtask'>New Task</Link>
+          </button>
+        </div>
       </div>
       <div className='flex flex-col gap-5 mt-5'>
         {tasks.map((task: taskInterface) => (
