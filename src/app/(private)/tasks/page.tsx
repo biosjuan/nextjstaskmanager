@@ -6,7 +6,7 @@ import { taskInterface } from '@/interfaces';
 import DelteTaskButton from './_components/DeleteTask';
 import ClearFilters from './_components/ClearFilters';
 
-export async function getTasks(searchParams = {}) {
+async function getTasks(searchParams = {}) {
   try {
     const searchParamsString = new URLSearchParams(searchParams).toString();
 
